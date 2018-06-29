@@ -80,11 +80,22 @@ function bossForHowMany(products) {
     ])
         .then(function (sup) {
             let amount = cutNum(sup.amount);
-            AddItem(product, quantity);
+            addItem(product, quantity);
         });
 }
 
-function BossNewItem(products) {
+function addItem(product, quantity) {
+    connection.query(
+        'UPDATE products SET stock_quantity = ? WHERE item_id = ?',
+        [product.stock_quantity + quantity, product.item_id],
+        function(err, res) {
+        console.log('You have added' + quantity + ' ' + product.product_name);
+        loadBossMenu();
+        }
+    );
+}
+
+function BossNewItem(product) {
     inquirer.prompt([
         {
             type: 'input',
@@ -94,7 +105,7 @@ function BossNewItem(products) {
         {
             type: 'list',
             name: 'department_name',
-            choices: addedCatagories(products),
+            choices: addedCatagories(product),
             message: 'Which Catag. does this item belong to.'
         },
         {
@@ -129,11 +140,11 @@ function addNewItem(sup) {
     );
 }
 
-function addedCatagories(products) {
-    var departments = [];
-    for (var i = 0; i < products.length; i++) {
-        if (departments.indexOf(products[i].department_name) === -1) {
-            departments.push(products[i].department_name);
+function addedCatagories(product) {
+    let departments = [];
+    for (let i = 0; i < product.length; i++) {
+        if (departments.indexOf(product[i].department_name) === -1) {
+            departments.push(product[i].department_name);
         }
     }
     return departments;
