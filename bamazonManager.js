@@ -88,9 +88,9 @@ function addItem(product, quantity) {
     connection.query(
         'UPDATE products SET stock_quantity = ? WHERE item_id = ?',
         [product.stock_quantity + quantity, product.item_id],
-        function(err, res) {
-        console.log('You have added' + quantity + ' ' + product.product_name);
-        loadBossMenu();
+        function (err, res) {
+            console.log('You have added' + quantity + ' ' + product.product_name);
+            loadBossMenu();
         }
     );
 }

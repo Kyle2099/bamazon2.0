@@ -66,30 +66,30 @@ function stockQuantity(product) {
         type: 'input',
         name: 'quantity',
         message: 'How many would you like to buy?',
-        validate: function(sup) {
+        validate: function (sup) {
             return sup > 0 || sup.toLowerCase() === 'b';
         }
     }
-])
-.then(function(sup) {
-    wantToExit(sup.amount);
-    let amount = cutNum(sup.amount);
+    ])
+        .then(function (sup) {
+            wantToExit(sup.amount);
+            let amount = cutNum(sup.amount);
 
-    if (amount > product.stock_quantity) {
-        console.log('Sorry, but we out. Check back next week!')
-        inventory();
-    }
-    else {
-        letsBuy(product, amount);
-    }
-});
+            if (amount > product.stock_quantity) {
+                console.log('Sorry, but we out. Check back next week!')
+                inventory();
+            }
+            else {
+                letsBuy(product, amount);
+            }
+        });
 }
 
 function letsBuy(product, amount) {
     connection.query(
         "UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?",
         [amount, product.item_id],
-        function(err, result) {
+        function (err, result) {
             console.log('Thanks you bought' + amount + ' ' + product.product_name);
         }
     );
