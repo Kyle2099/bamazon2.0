@@ -121,7 +121,7 @@ function BossNewItem(product) {
             name: 'amount',
             message: 'How many are going into the store?',
             validate: function (sup) {
-                return !fog(sup);
+                return !NaN(sup);
             }
         }
     ])

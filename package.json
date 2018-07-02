@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/Kyle2099/bamazon2.0#readme",
   "dependencies": {
+    "console-table": "^0.1.2",
     "dotenv": "^6.0.0",
     "inquirer": "^6.0.0",
-    "mysql": "^2.15.0"
+    "mysql": "^2.15.0",
+    "table": "^4.0.3"
   }
 }
