@@ -34,12 +34,7 @@ function inventory() {
     });
 }
 
-// function wantToExit(choice) {
-//     if (choice.toLowerCase() === 'b') {
-//         console.log('BYEEEEE! Thanks for shopping with us.');
-//         process.exit(0);
-//     }
-// }
+
 
 
 function userStockOptions(inv) {
@@ -112,8 +107,8 @@ function stockQuantity(productItem) {
 }
 
 function checkAvailability(productItem, productQuantity){
-    console.log("This is the product Item: ", productItem);
-    console.log("This is the productQuanity: ", productQuantity);
+    // console.log("This is the product Item: ", productItem);
+    // console.log("This is the productQuanity: ", productQuantity);
 
     connection.query('SELECT stock_quantity, price FROM products WHERE product_name=?', [productItem], function(error, dbResults, fields){
 
@@ -130,29 +125,32 @@ function checkAvailability(productItem, productQuantity){
             if(productQuantity > 1){
                 console.log(`You just purchases ${productQuantity} ${productItem}s for ${totalSale}`)
             }
+            else{
+                 console.log(`You just purchases ${productQuantity} ${productItem} for ${totalSale}`)
+            }
+
+            updateDatabase(productItem, availableInventory - productQuantity);
         }
     })
 
 
 }
 
-function letsBuy(product, amount) {
-    connection.query(
-        "UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?",
-        [amount, product.item_id],
-        function (err, result) {
-            console.log('Thanks you bought' + amount + ' ' + product.product_name);
+function updateDatabase(productItem, updatedQuantity){
+    connection.query("UPDATE products SET ? WHERE ?", [
+        {
+            stock_quantity: updatedQuantity
+        },
+        {
+            product_name: productItem
         }
-    );
+    ], function(error, results, fields){
+        if(error) throw error;
+
+        inventory();
+    })
 }
 
-function reviewStock(pickedID, stock) {
-    for (let i = 0; i < stock.length; i++) {
-        if (stock[i].itme_id === pickedID) {
-            return stock[i];
-        }
-    }
-    return null;
-}
+
 
 
