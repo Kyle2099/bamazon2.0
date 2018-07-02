@@ -122,9 +122,15 @@ function checkAvailability(productItem, productQuantity){
 
         console.log(dbResults)
 
-        let availableInventory = dbResults[0].stock_quanity;
+        let availableInventory = dbResults[0].stock_quantity;
+        let itemPrice = dbResults[0].price;
+        let totalSale = itemPrice * productQuantity;
 
-        console.log(availableInventory);
+        if((availableInventory - productQuantity) > 0){
+            if(productQuantity > 1){
+                console.log(`You just purchases ${productQuantity} ${productItem}s for ${totalSale}`)
+            }
+        }
     })
 
 
