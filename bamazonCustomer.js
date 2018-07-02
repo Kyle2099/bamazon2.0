@@ -43,9 +43,7 @@ function userStockOptions(inv) {
         name: 'productItem',
         choices: inv,
         message: 'What item would you like to purchase?',
-        // validate: function (sup) {
-        //     return !isNaN(sup) || sup.toLowerCase() === 'b';
-        // }
+    
     }
   
     ])
@@ -54,17 +52,7 @@ function userStockOptions(inv) {
             console.log("This is supply from inquier: ", sup);
 
             stockQuantity(sup.productItem);
-            // wantToExit(sup.choice);
-            // let pickedId = cutNum(sup.choice);
-            // let stock = invLeft(pickedId, inv);
-
-            // if (products) {
-            //     stockQuantity(products);
-            // }
-            // else {
-            //     console.log('Sorry please check back later we are out of that item.');
-            //     inventory();
-            // }
+           
         });
 }
 
@@ -73,9 +61,7 @@ function stockQuantity(productItem) {
         type: 'input',
         name: 'quantity',
         message: 'How many would you like to buy?'
-        // validate: function (sup) {
-        //     return sup > 0 || sup.toLowerCase() === 'b';
-        // }
+        
     }
     ])
         .then(function (sup) {
@@ -93,16 +79,7 @@ function stockQuantity(productItem) {
             }
 
 
-            // wantToExit(sup.amount);
-            // let amount = cutNum(sup.amount);
-
-            // if (amount > product.stock_quantity) {
-            //     console.log('Sorry, but we out. Check back next week!')
-            //     inventory();
-            // }
-            // else {
-            //     letsBuy(product, amount);
-            // }
+    
         });
 }
 
